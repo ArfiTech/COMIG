@@ -2,13 +2,15 @@ from text2text import StoryGenerator, KeywordExtractor
 from text2img import ImageGenerationPipeline as TextToImgPipeline
 from img2img import ImageGenerationPipeline as ImgToImgPipeline
 from PIL import Image, ImageDraw, ImageFont
+import time
 
 def generate_comic_strips(story_input):
     # Use text2text.py to generate a list of sentences and keywords from the story input
     story_generator = StoryGenerator()
     keyword_extractor = KeywordExtractor()
 
-    sentences = story_generator.generate_story(story_input)
+    # sentences = story_generator.generate_story(story_input)
+    sentences = story_generator.break_down_long_sentence(story_input)
     keywords = []
     print("Generated Stories:")
     for sentence in sentences:
@@ -49,14 +51,15 @@ def generate_comic_strips(story_input):
         composite_image.paste(strip_image, (i * (512 + 30), 0))
 
         # Draw the Sentence below each comic strip
-        text_width, text_height = draw.textsize(f"Scene: {sentences[i]}", font=font)
+        text_width, text_height = draw.textsize(f"\"{sentences[i]}\"", font=font)
         x_position = i * (512 + 30) + (512 - text_width) // 2
         y_position = 512 + 10  # Adjusted for vertical centering
         draw.text((x_position, y_position), f"Scene: {sentences[i]}", fill="black", font=font)
 
-    composite_image.save("./result_comics/composite_image.png")
+    now = time
+    composite_image.save(f"./result_comics/composite_image_{now.localtime()}.png")
     print("Composite image generated successfully!")
 
 if __name__ == "__main__":
-    user_story_input = "A cute girl is eating a bread."
+    user_story_input = "In a charming little town nestled between rolling hills and blooming meadows, there's a cozy bakery named \"Sweet Whiskers.\" The bakery is known for its delightful pastries and warm atmosphere. One sunny morning, a curious kitten named Mochi, with soft fur and sparkling eyes, stumbles upon the bakery's open door. Intrigued by the sweet aroma of freshly baked goods, Mochi decides to explore the inviting space. The friendly bakers, noticing the adorable visitor, offer Mochi a tiny pastry topped with a sprinkle of love. Overwhelmed by the cuteness of the moment, the customers can't help but smile as Mochi enjoys the treat, creating a heartwarming scene that brightens everyone's day."
     generate_comic_strips(user_story_input)
