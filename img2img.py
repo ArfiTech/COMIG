@@ -9,7 +9,7 @@ class ImageGenerationPipeline:
         self.pipe = StableDiffusionImg2ImgPipeline.from_pretrained(model_id_or_path, torch_dtype=torch_dtype, safety_checker = None)
         self.pipe = self.pipe.to(device)
 
-    def generate_image(self, prompt, input_image_path, output_image_path, strength=0.75, guidance_scale=7.5, image_size=(512, 512)):
+    def generate_image(self, prompt, input_image_path, output_image_path, strength=0.4, guidance_scale=7.5, image_size=(512, 512)):
         init_image = Image.open(input_image_path).convert("RGB")
         init_image = init_image.resize(image_size)
 
@@ -18,8 +18,8 @@ class ImageGenerationPipeline:
 
 if __name__ == "__main__":
     prompt = "1 girl, brown hair, loli, in airplane, laughing, back hair pin"
-    input_image_path = "./inputs/arisu.jpg"
-    output_image_path = "./result/arisu_laughing.png"
+    input_image_path = "../inputs/arisu_airplane.jpg"
+    output_image_path = "./test_results/arisu_laughing.png"
 
     image_pipeline = ImageGenerationPipeline()
     image_pipeline.generate_image(prompt, input_image_path, output_image_path)
