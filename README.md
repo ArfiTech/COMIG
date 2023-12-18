@@ -1,10 +1,13 @@
 # CCGM: Conditioned Comics Generate Model
 AI Comics Generator that is conditioned on the previous image to generate the next scene image
-<center> 
 
-![Untitled Diagram drawio (4)](https://github.com/ArfiTech/CCGM-Conditioned-Comics-Generate-Model/assets/60423885/79c2dfaa-493a-40ec-98c8-3b47b88238e5)
+.center {
+  display: block;
+  margin: auto;
+}
 
-<center>
+![Untitled Diagram drawio (4)](https://github.com/ArfiTech/CCGM-Conditioned-Comics-Generate-Model/assets/60423885/79c2dfaa-493a-40ec-98c8-3b47b88238e5){: width="300" height="300"){: .center}
+
 
 
 ![Untitled Diagram drawio (2)](https://github.com/ArfiTech/CCGM-Conditioned-Comics-Generate-Model/assets/60423885/210c2633-15b3-48e3-9c1f-dd17f01e9977)
