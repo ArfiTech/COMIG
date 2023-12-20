@@ -1,4 +1,4 @@
-# ICCG: Image-conditioned Comics Generation with Stable Diffusion Models
+# COMIG: COnditioned Manga Image Generation with Stable Diffusion Models
 
 <p align="center">
   <img src="https://github.com/ArfiTech/CCGM-Conditioned-Comics-Generate-Model/assets/60423885/79c2dfaa-493a-40ec-98c8-3b47b88238e5" alt="Model Introduction">
