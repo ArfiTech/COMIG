@@ -16,12 +16,14 @@ class ImageGenerationPipeline:
         init_image = Image.open(input_image_path).convert("RGB")
         init_image = init_image.resize(image_size)
         print("strength, guidance: ", strength, guidance_scale)
+        negative_prompt = "worst quality, error"
         
         image = self.pipeline(prompt=prompts,
                               num_inference_steps=100,
                               image=init_image,
                               strength=strength,
-                              guidance_scale=guidance_scale).images[0]
+                              guidance_scale=guidance_scale,
+                              negative_prompt=negative_prompt).images[0]
 
         image.save(output_image_path)
 

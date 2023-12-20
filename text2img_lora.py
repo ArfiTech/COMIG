@@ -13,11 +13,13 @@ class ImageGenerationPipeline:
 
     def generate_image(self, prompt, guidance_scale=7.5, image_size=(512, 512)):
         print("guidance: ", guidance_scale)
+        negative_prompt = "worst quality, error"
         image = self.pipeline(prompt=prompt,
                               num_inference_steps=100,
                               guidance_scale=guidance_scale,
                               width=image_size[0],
-                              height=image_size[1]).images[0]
+                              height=image_size[1],
+                              negative_prompt=negative_prompt).images[0]
         return image
 
 if __name__ == "__main__":

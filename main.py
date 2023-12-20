@@ -10,33 +10,28 @@ import numpy as np
 
 def generate_comic_strips(story_input):
     # Use text2text.py to generate a list of sentences and keywords from the story input
-    story_generator = StoryGenerator()
     keyword_extractor = KeywordExtractor()
     scoring = ScoreCont()
 
-    # sentences = story_generator.generate_story(story_input)
-
-    # sentences = story_generator.break_down_long_sentence(story_input)
-    # prior_words = ['hi-res', 'Manga_Style', 'Gray-scale']
-    # keywords = []
-    # print("Generated Stories:")
-    # for sentence in sentences:
-    #     main_words = keyword_extractor.extract_keywords(sentence)
-    #     main_words = [item[0] for item in main_words]
-    #     prior_words.extend(main_words)
-    #     print(f"Original Sentence: {sentence}")
-    #     print(f"Main Words: {prior_words}")
-    #     print("-" * 50)
-    #     keywords.append(prior_words)
-    # print("keywords: ", keywords)
-
-    prior_words = ['Best_quality', 'Manga', 'Gray-scale', 'detailed_face']
     keywords = []
+    previous_keywords = []
     sentences = story_input
-    print("Generated Stories:")
-    for sentence in sentences:
+    for i, sentence in enumerate(sentences):
+        prior_words = ['Best_quality', 'Manga', 'Gray-scale', 'detailed_face']
         main_words = keyword_extractor.extract_keywords(sentence)
+        print("main_words: ", main_words)
         main_words = [item[0] for item in main_words]
+        if i == 0:
+            previous_keywords.extend(main_words)
+        if i > 0 and len(previous_keywords) > 0:
+            rm_words = []
+            for pre in previous_keywords:
+                s = scoring.score_cur_prompt_next_prompt_hdn(pre, sentence)
+                print("word, word-sentence sim: ", pre, s)
+                if s < 0.5:
+                    rm_words.append(pre)
+            previous_keywords = [x for x in previous_keywords if x not in rm_words]
+        main_words = main_words + previous_keywords
         prior_words.extend(main_words)
         print(f"Original Sentence: {sentence}")
         print(f"Main Words: {prior_words}")
@@ -84,7 +79,7 @@ def generate_comic_strips(story_input):
                     output_image_path = f"./result_comics/comic_strip_{i}.png"
                     next_strip_keywords = ', '.join(keywords[i])
                     #strength = (1-max(score_list))*2.5
-                    strength = -(np.exp(-20/(max(score_list)*10))) + 1
+                    strength = -(np.exp(-17/(max(score_list)*10))) + 1
                     img_to_img_pipeline.generate_image(next_strip_keywords, prior_image_path, output_image_path, strength=strength, guidance_scale=7.5)
                 else:
                     print(f"else {i}th")
@@ -109,10 +104,10 @@ def generate_comic_strips(story_input):
         composite_image.paste(strip_image, (i * (512 + 30), 0))
 
         # Draw the Sentence below each comic strip
-        text_width, text_height = draw.textsize(f"\"{sentences[i]}\"", font=font)
-        x_position = i * (512 + 30) + (512 - text_width) // 2
-        y_position = 512 + 10  # Adjusted for vertical centering
-        draw.text((x_position, y_position), f"Scene: {sentences[i]}", fill="black", font=font)
+        # text_width, text_height = draw.textsize(f"\"{sentences[i]}\"", font=font)
+        # x_position = i * (512 + 30) + (512 - text_width) // 2
+        # y_position = 512 + 10  # Adjusted for vertical centering
+        # draw.text((x_position, y_position), f"Scene: {sentences[i]}", fill="black", font=font)
 
     now = time.localtime()
     formatted_time = time.strftime("%Y-%m-%d_%H-%M-%S", now)

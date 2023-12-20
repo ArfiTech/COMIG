@@ -60,32 +60,46 @@ if __name__ == "__main__":
         "A cute high school girl confesses to me.",
     ]
 
+    words = ["baseball",
+            "cute",
+            "bug",
+            "sport",
+            "bat",
+            "go"]
+
     scoring = ScoreCont()
     n = len(story)
     score_list = []
-    for i in range(1,n):
-        for j in range(i):
-            if i == j:
-                break
-            score = scoring.score_cur_prompt_next_prompt_hdn(story[j], story[i])
-            score_list.append(score)
-            print(f"score{j}{i}: {score}")
+
+    for word in words:
+        score1 = scoring.score_cur_prompt_next_prompt_hdn(word, story[0])
+        score2 = scoring.score_cur_prompt_next_prompt_hdn(story[0], word)
+        print("score1: ", score1)
+        print("score2: ", score2)
+
+    # for i in range(1,n):
+    #     for j in range(i):
+    #         if i == j:
+    #             break
+    #         score = scoring.score_cur_prompt_next_prompt_hdn(story[j], story[i])
+    #         score_list.append(score)
+    #         print(f"score{j}{i}: {score}")
             
     
     
-    score1_12 = scoring.score_cur_prompt_next_prompt_tf(story[0], story[1])
-    score1_23 = scoring.score_cur_prompt_next_prompt_tf(story[1], story[2])
-    score1_34 = scoring.score_cur_prompt_next_prompt_tf(story[2], story[3])
-    score1_45 = scoring.score_cur_prompt_next_prompt_tf(story[3], story[4])
-    score2_12 = scoring.score_cur_prompt_next_prompt_hdn(story[0], story[1])
-    score2_23 = scoring.score_cur_prompt_next_prompt_hdn(story[1], story[2])
-    score2_34 = scoring.score_cur_prompt_next_prompt_hdn(story[2], story[3])
-    score2_45 = scoring.score_cur_prompt_next_prompt_hdn(story[3], story[4])
-    print("score1: ", score1_12)
-    print("score1: ", score1_23)
-    print("score1: ", score1_34)
-    print("score1: ", score1_45)
-    print("score2: ", score2_12)
-    print("score2: ", score2_23)
-    print("score2: ", score2_34)
-    print("score2: ", score2_45)
+    # score1_12 = scoring.score_cur_prompt_next_prompt_tf(story[0], story[1])
+    # score1_23 = scoring.score_cur_prompt_next_prompt_tf(story[1], story[2])
+    # score1_34 = scoring.score_cur_prompt_next_prompt_tf(story[2], story[3])
+    # score1_45 = scoring.score_cur_prompt_next_prompt_tf(story[3], story[4])
+    # score2_12 = scoring.score_cur_prompt_next_prompt_hdn(story[0], story[1])
+    # score2_23 = scoring.score_cur_prompt_next_prompt_hdn(story[1], story[2])
+    # score2_34 = scoring.score_cur_prompt_next_prompt_hdn(story[2], story[3])
+    # score2_45 = scoring.score_cur_prompt_next_prompt_hdn(story[3], story[4])
+    # print("score1: ", score1_12)
+    # print("score1: ", score1_23)
+    # print("score1: ", score1_34)
+    # print("score1: ", score1_45)
+    # print("score2: ", score2_12)
+    # print("score2: ", score2_23)
+    # print("score2: ", score2_34)
+    # print("score2: ", score2_45)

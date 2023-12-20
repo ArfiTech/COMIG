@@ -47,7 +47,7 @@ class KeywordExtractor:
         self.kw_model = KeyBERT()
 
     def extract_keywords(self, sentence):
-        main_words = self.kw_model.extract_keywords(sentence)
+        main_words = self.kw_model.extract_keywords(sentence, top_n = 6)
         return main_words
 
 from transformers import T5Tokenizer, T5ForConditionalGeneration
