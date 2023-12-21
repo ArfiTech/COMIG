@@ -25,7 +25,8 @@ class ImageGenerationPipeline:
                               guidance_scale=guidance_scale,
                               negative_prompt=negative_prompt).images[0]
 
-        image.save(output_image_path)
+        #image.save(output_image_path)
+        return image
 
 if __name__ == "__main__":
 
@@ -41,7 +42,7 @@ if __name__ == "__main__":
 
     os.chdir(init_dir) 
 
-    prompts = "1 girl, loli, cute, crying"
+    prompts = "1 girl, cute, crying"
     prompts_list = prompts.split(", ")
     print(prompts_list)
 
