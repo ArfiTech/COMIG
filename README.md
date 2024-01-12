@@ -8,8 +8,6 @@
 
 AI Comics Generator that is conditioned on the previous image to generate the next scene image.
 
-This is a Project assignment repository about Robot Vision Project class in CAU.
-
 ## Structure
 
 ![Untitled Diagram drawio](https://github.com/ArfiTech/COMIG/assets/60423885/d6f3d3a2-f404-4370-b9a5-2239b0790e6f)
